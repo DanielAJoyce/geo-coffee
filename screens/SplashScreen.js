@@ -1,14 +1,17 @@
 import React, {Component} from 'react';
-import {View, Text, Button} from 'react-native';
+import {View, Text, Button, AsyncStorage} from 'react-native';
 import {Video} from 'expo';
 
 
 export default class SplashScreen extends Component{
 
 
-    doSomething = () => {
-        console.log("button pressed");
+        _signInAsync = async () => {
+            console.log("hihi");
+            await AsyncStorage.setItem('userToken', 'abc');
+            this.props.navigation.navigate('Tabs');
     }
+
     render(){
         return(
             <View>
@@ -23,7 +26,7 @@ export default class SplashScreen extends Component{
 
                 <Button 
                 title={"Sign In"}
-                onPress={() => this.doSomething}
+                onPress={this._signInAsync}
                 ></Button>
             </View>
         )

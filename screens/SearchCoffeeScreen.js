@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, Button, AsyncStorage} from 'react-native';
 
 export default class SearchCoffeeScreen extends Component{
     // constructor(props){
@@ -9,6 +9,12 @@ export default class SearchCoffeeScreen extends Component{
     //         coffeePlaces:{},
     //     }
     // }
+        _signOutAsync = async () => {
+            await AsyncStorage.clear();
+            this.props.navigation.navigate('Splash');
+          };
+
+
     componentDidMount(){
 
         // Do API Call here.
@@ -18,6 +24,11 @@ export default class SearchCoffeeScreen extends Component{
         return(
             <View>
                 <Text>SearchScreen</Text>
+                <Button
+                title="logout"
+                onPress={this._signOutAsync}>
+
+                </Button>
             </View>
         )
     }
