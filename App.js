@@ -1,15 +1,21 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import {createStackNavigator} from 'react-navigation';
+import { StyleSheet} from 'react-native';
+import {Tabs, SplashStack} from './Router';
+import {createSwitchNavigator} from 'react-navigation';
 
-export default class App extends React.Component {
-  
-  
+const SwitchNav = createSwitchNavigator({
+  Tabs,
+  SplashStack
+},
+{
+  initialRouteName:'SplashStack'
+})
+
+
+export default class App extends React.Component {  
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-      </View>
+      <SwitchNav/>
     );
   }
 }
