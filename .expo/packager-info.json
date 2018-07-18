@@ -1,8 +1,8 @@
 {
-  "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 11748,
-  "expoServerNgrokUrl": "https://xa-fkz.spacebiscuit.geo-coffee.exp.direct",
-  "packagerNgrokUrl": "https://packager.xa-fkz.spacebiscuit.geo-coffee.exp.direct",
-  "ngrokPid": 9412
+  "expoServerPort": null,
+  "packagerPort": null,
+  "packagerPid": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null
 }

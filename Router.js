@@ -101,8 +101,8 @@ export const Tabs = createBottomTabNavigator({
 },
 {
     initialRouteName:'HomeStack',
-    activeTintColor:'#28e2cd',
-    inactiveTintColor:'#7c7c7c',
+    activeTintColor:'#3f3f3f',
+    inactiveTintColor:'#e5e5e5',
     barStyle:{
       backgroundColor:'#f0edf6'
     }
