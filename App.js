@@ -3,6 +3,7 @@ import { StyleSheet} from 'react-native';
 import {Tabs, SplashStack} from './Router';
 import {createSwitchNavigator} from 'react-navigation';
 
+
 const SwitchNav = createSwitchNavigator({
   Tabs,
   SplashStack
@@ -10,7 +11,6 @@ const SwitchNav = createSwitchNavigator({
 {
   initialRouteName:'SplashStack'
 })
-
 
 export default class App extends React.Component {
   render() {

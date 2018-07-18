@@ -2,18 +2,11 @@ import React, {Component} from 'react';
 import {View, Text, Button, AsyncStorage} from 'react-native';
 
 export default class SearchCoffeeScreen extends Component{
-    // constructor(props){
-    //     super(props);
-    //     state = {
-    //         searchText:'',
-    //         coffeePlaces:{},
-    //     }
-    // }
+        
         _signOutAsync = async () => {
             await AsyncStorage.clear();
             this.props.navigation.navigate('Splash');
           };
-
 
     componentDidMount(){
 
@@ -27,7 +20,6 @@ export default class SearchCoffeeScreen extends Component{
                 <Button
                 title="logout"
                 onPress={this._signOutAsync}>
-
                 </Button>
             </View>
         )
