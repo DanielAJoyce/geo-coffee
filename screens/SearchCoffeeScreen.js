@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {View, Text, Button, AsyncStorage} from 'react-native';
-import {FormInput} from 'react-native-elements';
+import {FormInput, List} from 'react-native-elements';
 import {geoConfigOptions, apiDetails} from '../googleApiConfig/mapsConfig';
 import axios from 'axios';
 
@@ -33,7 +33,8 @@ export default class SearchCoffeeScreen extends Component{
             latitude:'',
             longitude:'',
             searchText:'',
-            results:[]
+            results:[],
+            isLoading:false
         }
     }
 
@@ -41,8 +42,12 @@ export default class SearchCoffeeScreen extends Component{
     changeSearchText = (text) => {
         this.setState({
             searchText:text
+        }, () => {
+            if(text.length > 1){
+                this.searchForCoffee();
+            }
         });
-        this.searchForCoffee();
+        
     }
         _signOutAsync = async () => {
             await AsyncStorage.clear();
@@ -59,7 +64,6 @@ export default class SearchCoffeeScreen extends Component{
             });
 
             console.log("lat: " + this.state.latitude);
-
             console.log("long: " + this.state.longitude);
             
         }
@@ -85,6 +89,14 @@ export default class SearchCoffeeScreen extends Component{
 
                 axios.get(axiosUrl).then(function (response) {
                     console.log(response);
+                    let searchResults = [];
+                    for(var x = 0; x < response.data.length; x++){
+                        searchResults.push(response.data[x]);
+                    }
+
+                    this.setState({
+                        results:searchResults
+                    })
                   })
                   .catch(function (error) {
                     console.log(error);
@@ -95,16 +107,32 @@ export default class SearchCoffeeScreen extends Component{
             }
         }
     render(){
+
+        let searchResultList = null;
+
+        // if(results.length > 0){ 
+        //     //Flat List
+        //     searchResultList = (
+            
+        //     <FlatList 
+        //     data={this.state.results}
+        //     keyExtractor={item=> item.id}
+        //     renderItem={({item}) => (
+        //         <Text>item.name</Text>
+        //     )}>
+            
+        //     </FlatList>)
+
+        // }
         return(
             <View>
                 <Text>SearchScreen</Text>
-
                  <FormInput
                 value={this.state.searchText}
                 onChangeText={(text) => this.changeSearchText(text)}
                 placeholder={"Search Coffee places..."}>
                 </FormInput>
-
+            
                 <Button
                 title="logout"
                 onPress={this._signOutAsync}>

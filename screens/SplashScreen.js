@@ -42,7 +42,6 @@ changeText = (text) => {
                 value={this.state.userNameText}
                 onChangeText={(text) => this.changeText(text)}
                 placeholder={"Your super cool name..."}>
-
                 </FormInput>
                 <Button 
                 title={"Sign In"}
