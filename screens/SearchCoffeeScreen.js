@@ -1,12 +1,10 @@
 import React, {Component} from 'react';
-import {View, Text, Button, AsyncStorage} from 'react-native';
+import {View, Text, Button,FlatList, AsyncStorage} from 'react-native';
 import {FormInput, List} from 'react-native-elements';
 import {geoConfigOptions, apiDetails} from '../googleApiConfig/mapsConfig';
 import axios from 'axios';
 
 export default class SearchCoffeeScreen extends Component{
-
-    
     /* 
     Google Places API.
 
@@ -76,7 +74,6 @@ export default class SearchCoffeeScreen extends Component{
         }
 
         searchForCoffee = () => {
-            if(this.state.searchText.length > 1){
 
                 /* Call: https://maps.googleapis.com/maps/
     api/place/nearbysearch/json?
@@ -87,43 +84,44 @@ export default class SearchCoffeeScreen extends Component{
 
         var axiosUrl = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${this.state.latitude},${this.state.longitude}&radius=${apiDetails.radius}&type=cafe&keyword=${this.state.searchText}&key=${apiDetails.key}`;
 
-                axios.get(axiosUrl).then(function (response) {
+                axios.get(axiosUrl).then((response) => {
                     console.log(response);
                     let searchResults = [];
-                    for(var x = 0; x < response.data.length; x++){
-                        searchResults.push(response.data[x]);
+                    for(var x = 0; x < response.data.results.length; x++){
+                        console.log("---LOG HERE --- RESPONSE DATA ---")
+                        console.log(response.data.results[x]);
+                        searchResults.push(response.data.results[x]);
                     }
-
                     this.setState({
                         results:searchResults
-                    })
+                    },() => {
+                        console.log(this.state.results);
+                    });
+
+
+
                   })
                   .catch(function (error) {
                     console.log(error);
                   });
-
-            }else{
-                console.log("searchText not long enough.");
-            }
         }
     render(){
 
         let searchResultList = null;
 
-        // if(results.length > 0){ 
-        //     //Flat List
-        //     searchResultList = (
+        if(this.state.results.length > 0){ 
+            //Flat List
+            searchResultList = (            
+            <FlatList 
+            data={this.state.results}
+            keyExtractor={item => item.place_id}
+            renderItem={({item}) => (
+                <Text>{item.name}</Text>
+            )}>
             
-        //     <FlatList 
-        //     data={this.state.results}
-        //     keyExtractor={item=> item.id}
-        //     renderItem={({item}) => (
-        //         <Text>item.name</Text>
-        //     )}>
-            
-        //     </FlatList>)
+            </FlatList>)
 
-        // }
+        }
         return(
             <View>
                 <Text>SearchScreen</Text>
@@ -132,7 +130,7 @@ export default class SearchCoffeeScreen extends Component{
                 onChangeText={(text) => this.changeSearchText(text)}
                 placeholder={"Search Coffee places..."}>
                 </FormInput>
-            
+                    {searchResultList}
                 <Button
                 title="logout"
                 onPress={this._signOutAsync}>
