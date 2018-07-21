@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text, Button,FlatList, AsyncStorage} from 'react-native';
+import {View, Text, Button,FlatList, AsyncStorage, TouchableHighlight} from 'react-native';
 import {FormInput, List} from 'react-native-elements';
 import {geoConfigOptions, apiDetails} from '../googleApiConfig/mapsConfig';
 import axios from 'axios';
@@ -90,6 +90,7 @@ export default class SearchCoffeeScreen extends Component{
                     for(var x = 0; x < response.data.results.length; x++){
                         console.log("---LOG HERE --- RESPONSE DATA ---")
                         console.log(response.data.results[x]);
+                        console.log(response.data.results[x].opening_hours.open_now);
                         searchResults.push(response.data.results[x]);
                     }
                     this.setState({
@@ -97,8 +98,6 @@ export default class SearchCoffeeScreen extends Component{
                     },() => {
                         console.log(this.state.results);
                     });
-
-
 
                   })
                   .catch(function (error) {
@@ -111,12 +110,29 @@ export default class SearchCoffeeScreen extends Component{
 
         if(this.state.results.length > 0){ 
             //Flat List
+        
             searchResultList = (            
             <FlatList 
             data={this.state.results}
             keyExtractor={item => item.place_id}
             renderItem={({item}) => (
-                <Text>{item.name}</Text>
+                
+                <TouchableHighlight 
+                style={{marginTop:5,paddingBottom:10}}
+                onPress={() => this.props.navigation.navigate('Details',
+                {
+                  name:item.name,
+                  openNow:item.opening_hours.open_now,
+                  icon:item.photos[0],
+                  placeId:item.place_id,
+                  vicinity:item.vicinity
+                })}>
+                <View style={{height:60, width:200,backgroundColor:'greenyellow'}}>
+                    <Text>{item.name}</Text>
+                    <Text style={{color:'#b7b7b7'}}>{item.vicinity}</Text>
+                    <Text>{item.opening_hours.open_now ? 'Open' : 'closed'}</Text>
+                </View>
+                </TouchableHighlight>
             )}>
             
             </FlatList>)

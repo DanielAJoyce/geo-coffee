@@ -5,32 +5,32 @@ import {geoConfigOptions} from '../googleApiConfig/mapsConfig';
 
 export default class DetailsScreen extends Component{
 
+    static navigationOptions ={ 
+        title:'Details Page'
+      }
+
+
     constructor(props){
         super(props);
-        this.state = { 
-            lattitude:'',
-            longitude:''
-        }
+        // this.state = { 
+        //     lattitude:'',
+        //     longitude:''
+        // }
     }
-    componentDidMount = () => {
-        navigator.geolocation.getCurrentPosition(success, error, geoConfigOptions);
-        function success(pos){
-            var crd = pos.coords;
 
-            this.setState({
-                lattitude:crd.lattitude,
-                longitude: crd.longitude
-            });
-        }
-
-        console.log(this.state.longitude);
-        console.log(this.state.lattitude);
-    }
+    
     render(){
+
+        const {navigation} = this.props;
+        const name = navigation.getParam('name');
+        const vicinity = navigation.getParam('vicinity');
+
+
         return(
             <View>
-                <Text>DetailsScreen</Text>
-                <Text></Text>
+                <Text>Details! </Text>
+                <Text>{name}</Text>
+                <Text>{vicinity}</Text>
             </View>
         )
     }

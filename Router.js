@@ -1,5 +1,5 @@
 import React from 'react';
-import {createSwitchNavigator, createStackNavigator, createBottomTabNavigator} from 'react-navigation';
+import {createStackNavigator, createBottomTabNavigator} from 'react-navigation';
 import {Platform} from 'react-native';
 
 import DetailsScreen from './screens/DetailsScreen';
