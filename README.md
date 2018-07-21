@@ -1,12 +1,19 @@
 # geo-coffee
 
+This project is to show off the various things that you can do in React Native.
+
+This includes:
+- Navigation
+- Styling
+- Authentication 
+- Local Storage
+- Realtime updates
+- Use with Firebase
+- Using geolocation and Google's APIs
+- Videos within React Native
 
 ## Stuff to do: 
 
-
-- Hook up chat to Firebase & style it
-- Hook up GooglePlaces search API
-- Have a map created
-- Create and style the details screen
-- Create Favourites Screen
-
+- Create Google map component and show all nearby coffee shops
+- Allow users to add favourites.
+- Styling 
