@@ -15,10 +15,10 @@ changeText = (text) => {
     this.setState({
         userNameText:text
     });
-}
-        _signInAsync = async () => {
-            console.log("hihi");
+}       
 
+        // Uses Async storage to save username locally.
+        _signInAsync = async () => {
             let username = this.state.userNameText;
 
             if(this.state.userNameText.length > 0){
@@ -27,6 +27,8 @@ changeText = (text) => {
             }
         }
 
+        // video component displays in the background
+        // While the form is on top. See Positioning.
     render(){
         return(
             <View style={styles.container}>
@@ -34,7 +36,11 @@ changeText = (text) => {
                     source={require('../assets/video/coffee.mp4')}
                     muted={true}
                     resizeMode="cover"
-                    repeat={true}
+                    ref={(ref) => {
+                        this.player = ref
+                      }}  
+                    repeat
+                    onEnd={()=> this.player.seek(0)}
                     shouldPlay
                     style={styles.videoStyle}
                 /> 
@@ -44,6 +50,7 @@ changeText = (text) => {
                 value={this.state.userNameText}
                 onChangeText={(text) => this.changeText(text)}
                 placeholder={"Your super cool name..."}
+                
                 style={{backgroundColor:'white'}}>
                 </FormInput>
                 <Button 

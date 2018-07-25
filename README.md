@@ -14,6 +14,7 @@ This includes:
 
 ## Stuff to do: 
 
-- Create Google map component and show all nearby coffee shops
+- Fix map screen to refresh dynamically when moving screen. Seems like there's a bit of an issue when updating state continually.
 - Allow users to add favourites.
 - Styling 
+

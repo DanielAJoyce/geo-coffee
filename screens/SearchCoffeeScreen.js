@@ -117,11 +117,10 @@ export default class SearchCoffeeScreen extends Component{
                 {
                   name:item.name,
                   openNow:item.opening_hours.open_now,
-                  icon:item.photos[0],
-                  placeId:item.place_id,
+                  place_id:item.place_id,
                   vicinity:item.vicinity
                 })}>
-                <View style={{height:60, borderRadius:5, width:200,backgroundColor:'greenyellow'}}>
+                <View style={{height:60, borderRadius:5, width:200, backgroundColor: item.opening_hours.open_now ? "greenyellow" : "red"}}>
                     <Text>{item.name}</Text>
                     <Text style={{color:'#b7b7b7'}}>{item.vicinity}</Text>
                     <Text>{item.opening_hours.open_now ? 'Open' : 'closed'}</Text>
