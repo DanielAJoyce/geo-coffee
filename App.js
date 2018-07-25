@@ -9,7 +9,7 @@ const SwitchNav = createSwitchNavigator({
   SplashStack
 },
 {
-  initialRouteName:'Tabs'
+  initialRouteName:'SplashStack'
 })
 
 export default class App extends React.Component {

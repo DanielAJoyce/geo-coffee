@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text, Button,FlatList, AsyncStorage, TouchableHighlight} from 'react-native';
+import {View, Text, Button,FlatList, AsyncStorage, TouchableHighlight, Dimensions} from 'react-native';
 import {FormInput, List} from 'react-native-elements';
 import {geoConfigOptions, apiDetails} from '../googleApiConfig/mapsConfig';
 import axios from 'axios';
@@ -17,13 +17,7 @@ export default class SearchCoffeeScreen extends Component{
     - bakery ? probably not.
     circular: circle:radius@lat,lng
     
-
-    Call: https://maps.googleapis.com/maps/
-    api/place/nearbysearch/json?
-    location=55.9663382,-3.1688961&radius=1500
-    &type=cafe&keyword=costa
-    &key=AIzaSyCR99smLDctHmYVIRUBk8BjQfHAFe1vU3M
-    */
+*/
 
     constructor(props){
         super(props);
@@ -36,7 +30,7 @@ export default class SearchCoffeeScreen extends Component{
         }
     }
 
-
+    // Texthandler for searching
     changeSearchText = (text) => {
         this.setState({
             searchText:text
@@ -47,23 +41,22 @@ export default class SearchCoffeeScreen extends Component{
         });
         
     }
+
+    // Logout button functionality. 
+    // To be changed to firebase auth.
         _signOutAsync = async () => {
             await AsyncStorage.clear();
             this.props.navigation.navigate('Splash');
           };
 
-
+          // When geolocation works, will set lat&long
           getPosSuccess = (pos) => {
             var crd = pos.coords;
 
             this.setState({
                 latitude: crd.latitude,
                 longitude: crd.longitude
-            });
-
-            console.log("lat: " + this.state.latitude);
-            console.log("long: " + this.state.longitude);
-            
+            });  
         }
         getPosFail = (error) => {
             console.log(error);
@@ -110,15 +103,16 @@ export default class SearchCoffeeScreen extends Component{
 
         if(this.state.results.length > 0){ 
             //Flat List
-        
+            
             searchResultList = (            
             <FlatList 
+                style={{height:Dimensions.get('window').height - 200}}
             data={this.state.results}
             keyExtractor={item => item.place_id}
             renderItem={({item}) => (
                 
                 <TouchableHighlight 
-                style={{marginTop:5,paddingBottom:10}}
+                style={{marginTop:5,marginBottom:10}}
                 onPress={() => this.props.navigation.navigate('Details',
                 {
                   name:item.name,
@@ -127,7 +121,7 @@ export default class SearchCoffeeScreen extends Component{
                   placeId:item.place_id,
                   vicinity:item.vicinity
                 })}>
-                <View style={{height:60, width:200,backgroundColor:'greenyellow'}}>
+                <View style={{height:60, borderRadius:5, width:200,backgroundColor:'greenyellow'}}>
                     <Text>{item.name}</Text>
                     <Text style={{color:'#b7b7b7'}}>{item.vicinity}</Text>
                     <Text>{item.opening_hours.open_now ? 'Open' : 'closed'}</Text>
