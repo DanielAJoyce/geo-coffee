@@ -122,7 +122,7 @@ export default class MapScreen extends Component{
             }}>
             
             <Text>
-
+                Example
             </Text>
 
             </Modal>

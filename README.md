@@ -16,5 +16,6 @@ This includes:
 
 - Fix map screen to refresh dynamically when moving screen. Seems like there's a bit of an issue when updating state continually.
 - Allow users to add favourites.
+- Bring more details and styling to the Details Screen
 - Styling 
-
+- Make the application more modularised, right now there's not much modularity currently.
