@@ -118,7 +118,6 @@ export default class ChatScreen extends Component{
 
         // This flat list will automatically update
         // whenever the messages length changes 
-        // This is a little bit of a cheatm but it works.
         if(this.state.messages.length > 0){
             list = <FlatList
                     extraData={this.state.messages.length}
